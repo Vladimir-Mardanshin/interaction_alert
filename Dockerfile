@@ -1,5 +1,5 @@
 # Используем образ node для сборки
-FROM registry.aliyuncs.com/node:16 as build-stage
+FROM mirror.gcr.io/library/node:16 as build-stage
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Используем образ nginx для сервировки статических файлов
-FROM registry.aliyuncs.com/nginx:alpine
+FROM mirror.gcr.io/library/nginx:alpine
 
 # Копируем сборку Vue из предыдущего этапа
 COPY --from=build-stage /app/dist /usr/share/nginx/html
