@@ -1,5 +1,5 @@
-# Используем альтернативный образ node для сборки
-FROM registry.docker-cn.com/library/node:16 as build-stage
+# Используем образ node для сборки
+FROM registry.aliyuncs.com/node:16 as build-stage
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
@@ -16,8 +16,8 @@ COPY . .
 # Собираем приложение
 RUN npm run build
 
-# Используем альтернативный образ nginx для сервировки статических файлов
-FROM registry.docker-cn.com/library/nginx:alpine
+# Используем образ nginx для сервировки статических файлов
+FROM registry.aliyuncs.com/nginx:alpine
 
 # Копируем сборку Vue из предыдущего этапа
 COPY --from=build-stage /app/dist /usr/share/nginx/html
